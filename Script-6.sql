@@ -84,7 +84,8 @@ SELECT Proveedor.nombre_corporativo, SUM(Producto.stock) as cantidad from Provee
 INNER JOIN Producto ON Proveedor.id_proveedor = Producto.proveedor GROUP BY Proveedor.nombre_corporativo ORDER BY cantidad ASC LIMIT 1  ;
 
 # - Cambien la categoría de productos más popular por ‘Electrónica y computación’. 
-UPDATE  Producto SET categoria = 'Electrónica y computación' WHERE categoria = 'Linea Blanca'
+UPDATE  Producto SET categoria = 'Electrónica y computación' WHERE categoria = (SELECT categoria from (SELECT * FROM Producto) AS Productos GROUP BY categoria ORDER BY COUNT(*)  DESC LIMIT 1);
+
 
 
 
